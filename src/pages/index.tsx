@@ -1,27 +1,45 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Users from "./Users";
 import UserDetails from "./UserDetails";
+import { useAppSelector } from "../state/hooks";
+import { ProtectedRoute } from "./ProtectedRoute";
+import LoginPage from "./LoginPage";
+import Register from "./Register";
 
 const Routes = () => {
-    const token = true;
+    const token = useAppSelector(state=>state.authSlice.token)
+    //const token = true;
     const routesForAuthenticatedOnly = [
         {
             path: "/",
-            element: <Users/>,
-        },
-        {
-            path: "/:userId",
-            element: <UserDetails/>,
-        },
+            element: <ProtectedRoute/>,
+            children:[
+                {
+                    path: "profiles",
+                    element: <Users/>,
+                },
+                {
+                    path: "profiles/:userId",
+                    element: <UserDetails/>,
+                },
+            ]
+        }
+        
+
     ];
     const routesForNotAuthenticatedOnly = [
         {
-            path: "/",
-            element: <div>Login</div>,
+            path: "/login",
+            element: <LoginPage/>,
         },
+        {
+            path: "/register",
+            element: <Register/>,
+        }
     ];
     const router = createBrowserRouter([
-        ...(!token ? routesForNotAuthenticatedOnly : routesForAuthenticatedOnly)
+        ...routesForNotAuthenticatedOnly,
+        ...routesForAuthenticatedOnly
       ]);
     
       // Provide the router configuration using RouterProvider

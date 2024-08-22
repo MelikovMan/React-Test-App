@@ -3,8 +3,8 @@ import { userApi } from "../api/usersApi";
 import UserList from "../components/UserList"
 export default function Users(){
     return(
-    <ApiProvider api = {userApi}>
+    //<ApiProvider api = {userApi}>
         <UserList/>
-    </ApiProvider>
+    //</ApiProvider>
     );
 }

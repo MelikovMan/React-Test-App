@@ -6,8 +6,7 @@ import { useParams } from "react-router-dom";
 export default function UserDetails(){
     const params = useParams<{userId:string}>();
     return(
-        <ApiProvider api = {userApi}>
-            <UserFullInfo id={params.userId ?? "1"}/>
-        </ApiProvider>
+            <UserFullInfo id={params.userId ?? "-1"}/>
+
         );
 }   

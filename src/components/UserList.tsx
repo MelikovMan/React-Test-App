@@ -3,7 +3,6 @@ import {useListUsersQuery} from "../api/usersApi"
 import Grid from '@mui/material/Grid';
 import { Pagination, Skeleton, Stack } from "@mui/material";
 import UserBox from "./UserBox";
-
 const UserList = () => {
     const [page, setPage] = useState(1)
     const { data: users , isLoading, isFetching,isError } = useListUsersQuery(page)
@@ -14,12 +13,7 @@ const UserList = () => {
     if (isLoading) {
       return (
         <>
-        <Skeleton />
-        <Skeleton animation="wave" />
-        <Skeleton animation="pulse" />
-        <Skeleton />
-        <Skeleton animation="wave" />
-        <Skeleton animation="pulse" />
+        <Skeleton animation="pulse" height={"540px"} />
         </>
       )
     }
@@ -29,20 +23,6 @@ const UserList = () => {
     }
 
     return (
-      /*<div>
-        {users.data.map(({ id, first_name, last_name }) => (
-          <div key={id}>
-            {first_name} - {last_name}
-          </div>
-        ))}
-        <button onClick={() => setPage(page - 1)} disabled={isFetching}>
-          Previous
-        </button>
-        <button onClick={() => setPage(page + 1)} disabled={isFetching}>
-          Next
-        </button>
-      </div>
-      */
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }}>
       {users.data.map(({ id, email, first_name, last_name, avatar }) => (
         <Grid item xs={2} sm={4} md={3} key={id}>
