@@ -16,21 +16,17 @@ export default function UserFullInfo({id,children}:UserFullInfoProps){
     const { data: user , isLoading, isFetching,isError } = useGetUserQuery(parseInt(id));
     const theme = useTheme();
     const isBig = useMediaQuery(theme.breakpoints.up('sm'));
-    if (isError){
-        return (
-            <Alert severity="error" sx={{height:"50vh"}}>Ошибка получения пользователя</Alert>
-        )
-    }
+
 
     return(
         <div>
             <Container maxWidth={false} disableGutters>
-            <ToolbarFullProfile id ={user?.data.id ?? 1} first_name={user?.data.first_name ?? "Test"} 
+            <ToolbarFullProfile id ={user?.data.id ?? -1} first_name={user?.data.first_name ?? "Test"} 
             last_name={user?.data.last_name ?? "Test"} 
             avatar={user?.data.avatar ?? "Test"}/>
             {(isFetching || isLoading) ? 
             <Skeleton width={"100%"} height={"100%"} animation="wave"/>
-            : isError ?  <Alert severity="error" sx={{height:"290px"}}>Couldn't fetch user</Alert>
+            : isError ?  <Alert severity="error" sx={{height:"270px"}}>Ошибка получения пользователя</Alert>
             :
             <Grid   container
             justifyContent="flex-start"

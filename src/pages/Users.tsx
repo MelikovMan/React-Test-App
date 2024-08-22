@@ -1,5 +1,3 @@
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { userApi } from "../api/usersApi";
 import UserList from "../components/UserList"
 import { Container } from "@mui/material";
 import ProfilesAppbar from "../components/ProfilesAppbar";

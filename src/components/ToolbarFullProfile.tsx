@@ -145,7 +145,7 @@ export default function ProminentAppBarProfile({id, avatar, last_name, first_nam
           </Button>
           { (isFetching || isLoading) ? <Skeleton height={"270px"} animation="wave"/> 
             : isError ? 
-            <Alert severity='error'>Ошибка получения пользователя</Alert>
+            <Alert severity='error' sx={{height:"270px", width:"90vw", margin:"16px"}}>Ошибка получения пользователя</Alert>
             : <Grid   container
               direction="row"
               justifyContent="flex-start"
