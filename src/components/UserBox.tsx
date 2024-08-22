@@ -22,7 +22,7 @@ export default function UserBox({user,children}:UserBoxProps){
   const localAvatar = useAppSelector(state=>binarySearchElem(state.userSlice.users,user.id)?.customAvatar ?? null);
   const dispatch = useAppDispatch();
     return(
-        <Link to={`${user.id}`}>
+        <Link to={`/profile/${user.id}`}>
         <Paper sx={{...boxSX,p:1}}>
             <Stack direction="column"
               justifyContent="center"

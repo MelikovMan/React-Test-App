@@ -15,11 +15,11 @@ const Routes = () => {
             element: <ProtectedRoute/>,
             children:[
                 {
-                    path: "profiles",
+                    path: "profiles/:page?",
                     element: <Users/>,
                 },
                 {
-                    path: "profiles/:userId",
+                    path: "profile/:userId",
                     element: <UserDetails/>,
                 },
             ]

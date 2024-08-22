@@ -1,6 +1,4 @@
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { RegisterRequest, useLoginMutation, userApi } from "../api/usersApi";
-import LoginPage from "./LoginPage";
 import { useForm } from "react-hook-form";
 import { useAppSelector } from "../state/hooks";
 import { useEffect, useMemo, useState } from "react";
@@ -85,6 +83,7 @@ export default function Register(){
           <Button onClick={handleSubmit(onSubmit)} variant={"contained"} disabled={status === TokenStatus.FETCHING}>
             Зарегестрироваться
           </Button>
+          {status === TokenStatus.FETCHING && <LinearProgress />}
         </Paper>
       </div>
       )

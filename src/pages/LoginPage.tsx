@@ -1,14 +1,11 @@
 import { useForm } from "react-hook-form"
-//import { useAuth } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import logo from '../logo.svg';
 import { Button, Paper, Typography, Alert, LinearProgress } from "@mui/material";
 import FormInputText from "../components/FormInputText";
 import { useAppSelector } from "../state/hooks";
 import { LoginRequest, useLoginMutation } from "../api/usersApi";
 import { TokenStatus } from "../state/authSlice";
-import { isErrorWithMessage, isFetchBaseQueryErrorNested } from "../api/helpers";
 
 export default function LoginPage() {
     const {

@@ -13,9 +13,9 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
-import { Alert, Button, Snackbar, SnackbarCloseReason, useMediaQuery } from '@mui/material';
+import { Alert, Button, Skeleton, Snackbar, SnackbarCloseReason, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material';
-import { useLogoutMutation } from '../api/usersApi';
+import { useGetUserQuery, useLogoutMutation } from '../api/usersApi';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { binarySearchElem, setAvatar } from '../state/userSlice';
@@ -80,6 +80,7 @@ async function crop (b64:string){
 export default function ProminentAppBarProfile({id, avatar, last_name, first_name, children}:ProminentAppBarProfileProps) {
   const navigate = useNavigate();
   const theme = useTheme();
+  const {isLoading, isFetching,isError} = useGetUserQuery(id);
   const[logout] = useLogoutMutation();
   const localAvatar = useAppSelector(state=>binarySearchElem(state.userSlice.users,id)?.customAvatar ?? null);
   const dispatch = useAppDispatch();
@@ -128,7 +129,7 @@ export default function ProminentAppBarProfile({id, avatar, last_name, first_nam
             edge="start"
             color="inherit"
             sx={{ mr: 2, alignSelf: "flex-start" , display:{xs:"block",sm:"none"} }}
-            onClick={()=>{navigate("/profiles")}
+            onClick={()=>{navigate(`/profiles/${Math.ceil(id/8)}`)}
           }
           >
             <ArrowBackIcon />
@@ -137,12 +138,15 @@ export default function ProminentAppBarProfile({id, avatar, last_name, first_nam
            color="secondary"
             variant="outlined"
             sx={{alignSelf: "flex-start" , display:{xs:"none",sm:"block"},p:1 }}
-            onClick={()=>{navigate("/profiles")}
+            onClick={()=>{navigate(`/profiles/${Math.ceil(id/8)}`)}
           }
           >
             <Typography sx={{fontSize: "0.7rem"}}>Назад</Typography>
           </Button>
-            <Grid   container
+          { (isFetching || isLoading) ? <Skeleton height={"270px"} animation="wave"/> 
+            : isError ? 
+            <Alert severity='error'>Ошибка получения пользователя</Alert>
+            : <Grid   container
               direction="row"
               justifyContent="flex-start"
              alignItems="center"
@@ -168,6 +172,7 @@ export default function ProminentAppBarProfile({id, avatar, last_name, first_nam
                 </Stack>
                 </Grid>
             </Grid>
+          }
           <IconButton onClick={()=>{logout()}} size="large" aria-label="search" color="inherit" sx={{ p: 0, pt:"12px", alignSelf: "start", display:{xs:"block",sm:"none"} }}>
             <LogoutIcon />
           </IconButton>
